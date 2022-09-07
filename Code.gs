@@ -11,14 +11,12 @@ function fetchQoute() {
 
 function processForm(formObject) {
   var ui = SpreadsheetApp.getUi();
-  ui.alert(JSON.stringify(formObject))
+  //ui.alert(JSON.stringify(formObject))
   // To access individual values, you would do the following
-  var firstName = formObject.firstname 
+  var title = formObject.title 
   //based on name ="firstname" in <input type="text" name="firstname">
-  // Similarly
-  var lastName = formObject.lastname
-  var gender = formObject.gender
-  ui.alert (firstName+";"+lastName+";"+gender)
+  var type = formObject.type
+  ui.alert (title + "; " + type)
 }
 
 function myFunction() {
@@ -32,6 +30,6 @@ function myFunction() {
   var htmlOutput = HtmlService
     .createHtmlOutputFromFile('Form')
     .setWidth(250)
-    .setHeight(300);
-    SpreadsheetApp.getUi().showModalDialog(htmlOutput, 'My add-on');
+    .setHeight(400);
+    SpreadsheetApp.getUi().showModalDialog(htmlOutput, 'Modify List');
 }

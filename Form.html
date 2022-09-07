@@ -6,14 +6,21 @@
   <body>
     Please fill in the form below.<br><br>
      <form id="myForm" onsubmit="event.preventDefault(); google.script.run.processForm(this)">
-      First name:
-      <input type="text" name="firstname"><br><br>
-      Last name:
-      <input type="text" name="lastname"><br><br>
-      Gender:<br>
-      <input type="radio" name="gender" value="male" checked> Male<br>
-      <input type="radio" name="gender" value="female"> Female<br>
-      <input type="radio" name="gender" value="other"> Other<br>
+      Title:
+      <input type="text" name="title"><br><br>
+      Type:<br>
+      <input type="radio" name="type" value="Movie" checked> Movie<br>
+      <input type="radio" name="type" value="Book"> Book<br>
+      <input type="radio" name="type" value="Bookseries"> Book Series<br>
+      <input type="radio" name="type" value="TV"> TV Show<br>
+      <br>
+
+      Status:<br>
+      <input type="radio" name="status" value="add" checked> Add<br>
+      <input type="radio" name="status" value="active"> In Progress<br>
+      <input type="radio" name="status" value="finished_try_later"> Finished Try Later<br>
+      <input type="radio" name="status" value="unfinished_try_later"> Unfinished Try Later<br>
+      <input type="radio" name="status" value="remove"> Remove<br>
       <br>
       <input type="submit" value="Submit">
     </form><br>
