@@ -24,6 +24,7 @@ function findRow(searchVal) {
 
 function processForm(formObject) {
   var ui = SpreadsheetApp.getUi();
+  var sheet1 = SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Sheet1');
   //ui.alert(JSON.stringify(formObject))
   // To access individual values, you would do the following
   var title = formObject.title 
@@ -39,7 +40,6 @@ function processForm(formObject) {
   if (status === "add") {
     if (type === "Movie") {
       ui.alert ("AddMedia Movie")
-      var sheet1 = SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Sheet1');
       var lastrow = sheet1.getLastRow() + 1;
       sheet1.getRange(lastrow, 1).setValue('skrt');
       sheet1.getRange(lastrow, 2).setValue('Burt');
@@ -61,25 +61,68 @@ function processForm(formObject) {
   if (status === "active") {
     //change color to green
     ui.alert (title + "; " + type + "; " + status)
+    if (type === "Movie") {
+      sheet1.getRange(findRow(title), 1).setBackgroundRGB(224, 102, 102);
+    }
+
+    if (type === "Book" || type === "Bookseries") {
+      sheet1.getRange(findRow(title), 3).setBackgroundRGB(224, 102, 102);
+    }
+
+    if (type === "TV") {
+      sheet1.getRange(findRow(title), 5).setBackgroundRGB(224, 102, 102);
+    }
   }
 
   if (status === "finished") {
     //change the color to red
-    sheet1.getRange(findRow(title), 1).setBackgroundRGB(224, 102, 102);
+    if (type === "Movie") {
+      sheet1.getRange(findRow(title), 1).setBackgroundRGB(224, 102, 102);
+    }
+
+    if (type === "Book" || type === "Bookseries") {
+      sheet1.getRange(findRow(title), 3).setBackgroundRGB(224, 102, 102);
+    }
+
+    if (type === "TV") {
+      sheet1.getRange(findRow(title), 5).setBackgroundRGB(224, 102, 102);
+    }
   }
 
   if (status === "finished_try_later") {
     //change the color to dark gray
     ui.alert (title + "; " + type + "; " + status)
+    if (type === "Movie") {
+      sheet1.getRange(findRow(title), 1).setBackgroundRGB(224, 102, 102);
+    }
+
+    if (type === "Book" || type === "Bookseries") {
+      sheet1.getRange(findRow(title), 3).setBackgroundRGB(224, 102, 102);
+    }
+
+    if (type === "TV") {
+      sheet1.getRange(findRow(title), 5).setBackgroundRGB(224, 102, 102);
+    }
   }
 
   if (status === "unfinished_try_later") {
     //change the color to light gray
     ui.alert (title + "; " + type + "; " + status)
+    if (type === "Movie") {
+      sheet1.getRange(findRow(title), 1).setBackgroundRGB(224, 102, 102);
+    }
+
+    if (type === "Book" || type === "Bookseries") {
+      sheet1.getRange(findRow(title), 3).setBackgroundRGB(224, 102, 102);
+    }
+
+    if (type === "TV") {
+      sheet1.getRange(findRow(title), 5).setBackgroundRGB(224, 102, 102);
+    }
   }
 
   if (status === "remove") {
-    removeMedia(title, type)
+    
   }
 }
 
