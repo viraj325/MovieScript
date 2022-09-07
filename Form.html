@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base target="_top">
+  </head>
+  <body>
+    Please fill in the form below.<br><br>
+     <form id="myForm" onsubmit="event.preventDefault(); google.script.run.processForm(this)">
+      First name:
+      <input type="text" name="firstname"><br><br>
+      Last name:
+      <input type="text" name="lastname"><br><br>
+      Gender:<br>
+      <input type="radio" name="gender" value="male" checked> Male<br>
+      <input type="radio" name="gender" value="female"> Female<br>
+      <input type="radio" name="gender" value="other"> Other<br>
+      <br>
+      <input type="submit" value="Submit">
+    </form><br>
+    <input type="button" value="Cancel" onclick="google.script.host.close()" />
+  </body>
+</html>

@@ -3,10 +3,22 @@ function randomInteger(min, max) {
 }
 
 function fetchQoute() {
-  var response = UrlFetchApp.fetch("https://firestore.googleapis.com/v1/projects/hugsforjaini/databases/(default)/documents/Qoutes/1");
+  var response = UrlFetchApp.fetch("https://firestore.googleapis.com/v1/projects/hugsforjaini/databases/(default)/documents/Qoutes/" + randomInteger(1,1));
   var json = JSON.parse(response)
   Logger.log(json.fields.Qoute.stringValue);
   return json.fields.Qoute.stringValue;
+}
+
+function processForm(formObject) {
+  var ui = SpreadsheetApp.getUi();
+  ui.alert(JSON.stringify(formObject))
+  // To access individual values, you would do the following
+  var firstName = formObject.firstname 
+  //based on name ="firstname" in <input type="text" name="firstname">
+  // Similarly
+  var lastName = formObject.lastname
+  var gender = formObject.gender
+  ui.alert (firstName+";"+lastName+";"+gender)
 }
 
 function myFunction() {
@@ -16,16 +28,10 @@ function myFunction() {
     .createHtmlOutput('<img src="https://picsum.photos/200/300" alt="Jaini and Viraj" width="100%" object-fit="cover" border="1"> <p>' + fetchQoute() + '</p>')
     .setTitle('Message of the Day!!');
   SpreadsheetApp.getUi().showSidebar(htmlOutput);
-
-  var ui = SpreadsheetApp.getUi();
-  var response = ui.prompt('Getting to know you', 'May I know your name?', ui.ButtonSet.YES_NO);
-
-  // Process the user's response.
-  if (response.getSelectedButton() == ui.Button.YES) {
-    Logger.log('The user\'s name is %s.', response.getResponseText());
-  } else if (response.getSelectedButton() == ui.Button.NO) {
-    Logger.log('The user didn\'t want to provide a name.');
-  } else {
-    Logger.log('The user clicked the close button in the dialog\'s title bar.');
-  }
+  
+  var htmlOutput = HtmlService
+    .createHtmlOutputFromFile('Form')
+    .setWidth(250)
+    .setHeight(300);
+    SpreadsheetApp.getUi().showModalDialog(htmlOutput, 'My add-on');
 }
