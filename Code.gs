@@ -9,6 +9,59 @@ function fetchQoute() {
   return json.fields.Qoute.stringValue;
 }
 
+function findRow(searchVal) {
+  var sheet = SpreadsheetApp.getActiveSheet();
+  var data = sheet.getDataRange().getValues();
+  var columnCount = sheet.getDataRange().getLastColumn();
+
+  var i = data.flat().indexOf(searchVal); 
+  var columnIndex = i % columnCount
+  var rowIndex = ((i - columnIndex) / columnCount);
+
+  Logger.log({columnIndex, rowIndex }); // zero based row and column indexes of searchVal
+  return i >= 0 ? rowIndex + 1 : "searchVal not found";
+}
+
+function addMedia(title, type) {
+  if (type === "Movie") {
+    ui.alert ("AddMedia Movie")
+    var sheet = SpreadsheetApp.getActiveSpreadsheet()//.getSheetByName("Jaini Template");
+    var colValues = sheet.getRange("A1:A").getValues();
+    var count = colValues.filter(String).length
+    sheet.getRange(count+1,4).setValue(title);
+  }
+
+  if (type === "Book") {
+    ui.alert (title + "; " + type + "; " + status)
+  }
+
+  if (type === "Bookseries") {
+    ui.alert (title + "; " + type + "; " + status)
+  }
+
+  if (type === "TV") {
+    ui.alert (title + "; " + type + "; " + status)
+  }
+}
+
+function removeMedia(title, type) {
+  if (type === "Movie") {
+    ui.alert (title + "; " + type + "; " + status)
+  }
+
+  if (type === "Book") {
+    ui.alert (title + "; " + type + "; " + status)
+  }
+
+  if (type === "Bookseries") {
+    ui.alert (title + "; " + type + "; " + status)
+  }
+
+  if (type === "TV") {
+    ui.alert (title + "; " + type + "; " + status)
+  }
+}
+
 function processForm(formObject) {
   var ui = SpreadsheetApp.getUi();
   //ui.alert(JSON.stringify(formObject))
@@ -16,7 +69,51 @@ function processForm(formObject) {
   var title = formObject.title 
   //based on name ="firstname" in <input type="text" name="firstname">
   var type = formObject.type
-  ui.alert (title + "; " + type)
+  var status = formObject.status
+  ui.alert (title + "; " + type + "; " + status)
+
+  if (status === "search") {
+    ui.alert (title + "; " + type + "; " + status)
+  }
+
+  if (status === "add") {
+    if (type === "Movie") {
+      ui.alert ("AddMedia Movie")
+      var sheet1 = SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Sheet1');
+      var lastrow = sheet1.getLastRow() + 1;
+      sheet1.getRange(lastrow, 1).setValue('skrt');
+      sheet1.getRange(lastrow, 2).setValue('Burt');
+      sheet1.getRange(findRow("skrt"), 1).setBackgroundRGB(224, 102, 102);
+    }
+
+    if (type === "Book") {
+      ui.alert (title + "; " + type + "; " + status)
+    }
+
+    if (type === "Bookseries") {
+      ui.alert (title + "; " + type + "; " + status)
+    }
+
+    if (type === "TV") {
+      ui.alert (title + "; " + type + "; " + status)
+    }
+  }
+
+  if (status === "active") {
+    ui.alert (title + "; " + type + "; " + status)
+  }
+
+  if (status === "finished_try_later") {
+    ui.alert (title + "; " + type + "; " + status)
+  }
+
+  if (status === "unfinished_try_later") {
+    ui.alert (title + "; " + type + "; " + status)
+  }
+
+  if (status === "remove") {
+    removeMedia(title, type)
+  }
 }
 
 function myFunction() {
@@ -30,6 +127,6 @@ function myFunction() {
   var htmlOutput = HtmlService
     .createHtmlOutputFromFile('Form')
     .setWidth(250)
-    .setHeight(400);
+    .setHeight(450);
     SpreadsheetApp.getUi().showModalDialog(htmlOutput, 'Modify List');
 }
