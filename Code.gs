@@ -22,46 +22,6 @@ function findRow(searchVal) {
   return i >= 0 ? rowIndex + 1 : "searchVal not found";
 }
 
-function addMedia(title, type) {
-  if (type === "Movie") {
-    ui.alert ("AddMedia Movie")
-    var sheet = SpreadsheetApp.getActiveSpreadsheet()//.getSheetByName("Jaini Template");
-    var colValues = sheet.getRange("A1:A").getValues();
-    var count = colValues.filter(String).length
-    sheet.getRange(count+1,4).setValue(title);
-  }
-
-  if (type === "Book") {
-    ui.alert (title + "; " + type + "; " + status)
-  }
-
-  if (type === "Bookseries") {
-    ui.alert (title + "; " + type + "; " + status)
-  }
-
-  if (type === "TV") {
-    ui.alert (title + "; " + type + "; " + status)
-  }
-}
-
-function removeMedia(title, type) {
-  if (type === "Movie") {
-    ui.alert (title + "; " + type + "; " + status)
-  }
-
-  if (type === "Book") {
-    ui.alert (title + "; " + type + "; " + status)
-  }
-
-  if (type === "Bookseries") {
-    ui.alert (title + "; " + type + "; " + status)
-  }
-
-  if (type === "TV") {
-    ui.alert (title + "; " + type + "; " + status)
-  }
-}
-
 function processForm(formObject) {
   var ui = SpreadsheetApp.getUi();
   //ui.alert(JSON.stringify(formObject))
@@ -83,7 +43,6 @@ function processForm(formObject) {
       var lastrow = sheet1.getLastRow() + 1;
       sheet1.getRange(lastrow, 1).setValue('skrt');
       sheet1.getRange(lastrow, 2).setValue('Burt');
-      sheet1.getRange(findRow("skrt"), 1).setBackgroundRGB(224, 102, 102);
     }
 
     if (type === "Book") {
@@ -100,14 +59,22 @@ function processForm(formObject) {
   }
 
   if (status === "active") {
+    //change color to green
     ui.alert (title + "; " + type + "; " + status)
   }
 
+  if (status === "finished") {
+    //change the color to red
+    sheet1.getRange(findRow(title), 1).setBackgroundRGB(224, 102, 102);
+  }
+
   if (status === "finished_try_later") {
+    //change the color to dark gray
     ui.alert (title + "; " + type + "; " + status)
   }
 
   if (status === "unfinished_try_later") {
+    //change the color to light gray
     ui.alert (title + "; " + type + "; " + status)
   }
 
