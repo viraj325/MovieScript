@@ -25,36 +25,44 @@ function findRow(searchVal) {
 function processForm(formObject) {
   var ui = SpreadsheetApp.getUi();
   var sheet1 = SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Sheet1');
-  //ui.alert(JSON.stringify(formObject))
-  // To access individual values, you would do the following
   var title = formObject.title 
-  //based on name ="firstname" in <input type="text" name="firstname">
   var type = formObject.type
   var status = formObject.status
   ui.alert (title + "; " + type + "; " + status)
 
   if (status === "search") {
-    ui.alert (title + "; " + type + "; " + status)
+    if(findRow(title) == "searchVal not found") {
+      ui.alert (title + " exists in the sheet")
+    } else {
+      ui.alert (title + " doesn't exist")
+    }
   }
 
   if (status === "add") {
     if (type === "Movie") {
-      ui.alert ("AddMedia Movie")
+      ui.alert ("Add Movie")
       var lastrow = sheet1.getLastRow() + 1;
-      sheet1.getRange(lastrow, 1).setValue('skrt');
-      sheet1.getRange(lastrow, 2).setValue('Burt');
+      sheet1.getRange(lastrow, 1).setValue(title);
+      //sheet1.getRange(lastrow, 1).setValue('skrt');
+      //sheet1.getRange(lastrow, 2).setValue('Burt');
     }
 
     if (type === "Book") {
-      ui.alert (title + "; " + type + "; " + status)
+      ui.alert ("Add Book")
+      var lastrow = sheet1.getLastRow() + 1;
+      sheet1.getRange(lastrow, 3).setValue(title);
     }
 
     if (type === "Bookseries") {
-      ui.alert (title + "; " + type + "; " + status)
+      ui.alert ("Add Book Series")
+      var lastrow = sheet1.getLastRow() + 1;
+      sheet1.getRange(lastrow, 3).setValue(title);
     }
 
     if (type === "TV") {
-      ui.alert (title + "; " + type + "; " + status)
+      ui.alert ("Add TV")
+      var lastrow = sheet1.getLastRow() + 1;
+      sheet1.getRange(lastrow, 5).setValue(title);
     }
   }
 
@@ -62,15 +70,15 @@ function processForm(formObject) {
     //change color to green
     ui.alert (title + "; " + type + "; " + status)
     if (type === "Movie") {
-      sheet1.getRange(findRow(title), 1).setBackgroundRGB(224, 102, 102);
+      sheet1.getRange(findRow(title), 1).setBackgroundRGB(0, 181, 30);
     }
 
     if (type === "Book" || type === "Bookseries") {
-      sheet1.getRange(findRow(title), 3).setBackgroundRGB(224, 102, 102);
+      sheet1.getRange(findRow(title), 3).setBackgroundRGB(0, 181, 30);
     }
 
     if (type === "TV") {
-      sheet1.getRange(findRow(title), 5).setBackgroundRGB(224, 102, 102);
+      sheet1.getRange(findRow(title), 5).setBackgroundRGB(0, 181, 30);
     }
   }
 
@@ -93,15 +101,15 @@ function processForm(formObject) {
     //change the color to dark gray
     ui.alert (title + "; " + type + "; " + status)
     if (type === "Movie") {
-      sheet1.getRange(findRow(title), 1).setBackgroundRGB(224, 102, 102);
+      sheet1.getRange(findRow(title), 1).setBackgroundRGB(81, 82, 81);
     }
 
     if (type === "Book" || type === "Bookseries") {
-      sheet1.getRange(findRow(title), 3).setBackgroundRGB(224, 102, 102);
+      sheet1.getRange(findRow(title), 3).setBackgroundRGB(81, 82, 81);
     }
 
     if (type === "TV") {
-      sheet1.getRange(findRow(title), 5).setBackgroundRGB(224, 102, 102);
+      sheet1.getRange(findRow(title), 5).setBackgroundRGB(81, 82, 81);
     }
   }
 
@@ -109,20 +117,20 @@ function processForm(formObject) {
     //change the color to light gray
     ui.alert (title + "; " + type + "; " + status)
     if (type === "Movie") {
-      sheet1.getRange(findRow(title), 1).setBackgroundRGB(224, 102, 102);
+      sheet1.getRange(findRow(title), 1).setBackgroundRGB(171, 171, 171);
     }
 
     if (type === "Book" || type === "Bookseries") {
-      sheet1.getRange(findRow(title), 3).setBackgroundRGB(224, 102, 102);
+      sheet1.getRange(findRow(title), 3).setBackgroundRGB(171, 171, 171);
     }
 
     if (type === "TV") {
-      sheet1.getRange(findRow(title), 5).setBackgroundRGB(224, 102, 102);
+      sheet1.getRange(findRow(title), 5).setBackgroundRGB(171, 171, 171);
     }
   }
 
   if (status === "remove") {
-    
+    ui.alert ("Still in Development, do it manually...")
   }
 }
 
