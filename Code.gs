@@ -48,28 +48,47 @@ function processForm(formObject) {
   if (status === "add") {
     if (type === "Movie") {
       ui.alert ("Add Movie")
-      var lastrow = sheet1.getLastRow() + 1;
+      const lrow = sheet1.getLastRow();
+      const Avals = sheet1.getRange("A1:A" + lrow).getValues();
+      const Alast  = lrow - Avals.reverse().findIndex(c=>c[0]!='');
+      var lastrow = Alast + 1;
       sheet1.getRange(lastrow, 1).setValue(title);
+      sheet1.getRange(lastrow, 1).setBackgroundRGB(252, 252, 252);
       //sheet1.getRange(lastrow, 1).setValue('skrt');
       //sheet1.getRange(lastrow, 2).setValue('Burt');
     }
 
     if (type === "Book") {
       ui.alert ("Add Book")
-      var lastrow = sheet1.getLastRow() + 1;
+      const lrow = sheet1.getLastRow();
+      const Cvals = sheet1.getRange("C1:C" + lrow).getValues();
+      const Clast  = lrow - Cvals.reverse().findIndex(c=>c[0]!='');
+      var lastrow = Clast + 1;
+      //var lastrow = sheet1.getLastRow() + 1;
       sheet1.getRange(lastrow, 3).setValue(title);
+      sheet1.getRange(lastrow, 1).setBackgroundRGB(252, 252, 252);
     }
 
     if (type === "Bookseries") {
       ui.alert ("Add Book Series")
-      var lastrow = sheet1.getLastRow() + 1;
-      sheet1.getRange(lastrow, 3).setValue(title);
+      const lrow = sheet1.getLastRow();
+      const Cvals = sheet1.getRange("C1:C" + lrow).getValues();
+      const Clast  = lrow - Cvals.reverse().findIndex(c=>c[0]!='');
+      var lastrow = Clast + 1;
+      //var lastrow = sheet1.getLastRow() + 1;
+      sheet1.getRange(lastrow, 3).setValue(title + "(S)");
+      sheet1.getRange(lastrow, 1).setBackgroundRGB(252, 252, 252);
     }
 
     if (type === "TV") {
       ui.alert ("Add TV")
-      var lastrow = sheet1.getLastRow() + 1;
+      const lrow = sheet1.getLastRow();
+      const Evals = sheet1.getRange("E1:E" + lrow).getValues();
+      const Elast  = lrow - Evals.reverse().findIndex(c=>c[0]!='');
+      var lastrow = Elast + 1;
+      //var lastrow = sheet1.getLastRow() + 1;
       sheet1.getRange(lastrow, 5).setValue(title);
+      sheet1.getRange(lastrow, 1).setBackgroundRGB(252, 252, 252);
     }
   }
 
