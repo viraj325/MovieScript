@@ -9,6 +9,13 @@ function fetchQoute() {
   return json.fields.Qoute.stringValue;
 }
 
+function fetchImage() {
+  var response = UrlFetchApp.fetch("https://firestore.googleapis.com/v1/projects/hugsforjaini/databases/(default)/documents/Images/" + randomInteger(1,1));
+  var json = JSON.parse(response)
+  Logger.log(json.fields.Image.stringValue);
+  return json.fields.Image.stringValue;
+}
+
 function findRow(searchVal) {
   var sheet = SpreadsheetApp.getActiveSheet();
   var data = sheet.getDataRange().getValues();
@@ -27,7 +34,7 @@ function processForm(formObject) {
   var sheet1 = SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Sheet1');
   var title = formObject.title 
   var type = formObject.type
-  var status = formObject.status
+  var status = PropertiesService.getScriptProperties().getProperty('status');
   ui.alert (title + "; " + type + "; " + status)
 
   if (status === "search") {
@@ -135,16 +142,65 @@ function processForm(formObject) {
 }
 
 function myFunction() {
-  // Display a dialog box with a title, message, input field, and "Yes" and "No" buttons. The
-  // user can also close the dialog by clicking the close button in its title bar.
   var htmlOutput = HtmlService
-    .createHtmlOutput('<img src="https://picsum.photos/200/300" alt="Jaini and Viraj" width="100%" object-fit="cover" border="1"> <p>' + fetchQoute() + '</p>')
+    .createHtmlOutput('<img src="' + fetchImage() + '" alt="Jaini and Viraj" width="100%" object-fit="cover" border="1"> <p>' + fetchQoute() + '</p>')
     .setTitle('Message of the Day!!');
   SpreadsheetApp.getUi().showSidebar(htmlOutput);
-  
+
+  var ui = SpreadsheetApp.getUi();
+  ui.createMenu('Jaini Collection')
+    .addItem('Add', 'addItem')
+    .addItem('In Progress', 'inProgressItem')
+    .addItem('Finished', 'finishedItem')
+    .addSeparator()
+    .addItem('Finished, Try Later', 'finishedTLItem')
+    .addItem('Unfinished, Try Later', 'unfinishedTLItem')
+    .addSeparator()
+    .addItem('Remove', 'removeItem')
+    .addSeparator()
+    .addItem('Search', 'searchItem')
+    .addToUi();
+}
+
+function openForm() {
   var htmlOutput = HtmlService
     .createHtmlOutputFromFile('Form')
     .setWidth(250)
-    .setHeight(450);
-    SpreadsheetApp.getUi().showModalDialog(htmlOutput, 'Modify List');
+    .setHeight(275);
+  SpreadsheetApp.getUi().showModalDialog(htmlOutput, 'Modify List');
+}
+
+function addItem() {
+  PropertiesService.getScriptProperties().setProperty('status', 'add');
+  openForm()
+}
+
+function inProgressItem() {
+  PropertiesService.getScriptProperties().setProperty('status', 'active');
+  openForm()
+}
+
+function finishedItem() {
+  PropertiesService.getScriptProperties().setProperty('status', 'finished');
+  openForm()
+}
+
+function finishedTLItem() {
+  PropertiesService.getScriptProperties().setProperty('status', 'finished_try_later');
+  openForm()
+}
+
+function unfinishedTLItem() {
+  PropertiesService.getScriptProperties().setProperty('status', 'unfinished_try_later');
+  openForm()
+}
+
+function removeItem() {
+  PropertiesService.getScriptProperties().setProperty('status', 'remove');
+  openForm()
+}
+
+function searchItem() {
+  PropertiesService.getScriptProperties().setProperty('status', 'search');
+  openForm()
 }
